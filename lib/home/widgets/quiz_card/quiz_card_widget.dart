@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../core/core.dart';
 import '../../../shared/widgets/progress_indicator/progress_indicator_widget.dart';
 
-class QuizCardWidget extends StatelessWidget {
+class QuizCardWidget extends StatefulWidget {
   final String title;
   final String imageName;
   final Level level;
@@ -21,6 +21,30 @@ class QuizCardWidget extends StatelessWidget {
     required this.imageName,
     required this.level,
   }) : super(key: key);
+
+  @override
+  _QuizCardWidgetState createState() => _QuizCardWidgetState();
+}
+
+class _QuizCardWidgetState extends State<QuizCardWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  void _initAnimation() {
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
+    _animation = Tween<double>(begin: 0.0, end: widget.progressRate)
+        .animate(_animationController);
+
+    _animationController.forward();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initAnimation();
+  }
 
   final levelColor = {
     Level.facil: {
@@ -41,13 +65,13 @@ class QuizCardWidget extends StatelessWidget {
     },
   };
 
-  Color? get color => levelColor[level]!['color'];
-  Color? get borderColor => levelColor[level]!['borderColor'];
+  Color? get color => levelColor[widget.level]!['color'];
+  Color? get borderColor => levelColor[widget.level]!['borderColor'];
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -67,7 +91,8 @@ class QuizCardWidget extends StatelessWidget {
                 Container(
                   height: 40,
                   width: 40,
-                  child: Image.asset(AppImages.getImageByName(imageName)),
+                  child:
+                      Image.asset(AppImages.getImageByName(widget.imageName)),
                 ),
                 Container(
                   height: 15,
@@ -86,7 +111,7 @@ class QuizCardWidget extends StatelessWidget {
               height: 20,
             ),
             Text(
-              title,
+              widget.title,
               style: AppTextStyles.heading15,
             ),
             SizedBox(
@@ -97,13 +122,17 @@ class QuizCardWidget extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    progress,
+                    widget.progress,
                     style: AppTextStyles.body11,
                   ),
                 ),
                 Expanded(
                   flex: 4,
-                  child: ProgressIndicatorWidget(value: progressRate),
+                  child: AnimatedBuilder(
+                    animation: _animation,
+                    builder: (context, _) =>
+                        ProgressIndicatorWidget(value: _animation.value),
+                  ),
                 ),
               ],
             )
