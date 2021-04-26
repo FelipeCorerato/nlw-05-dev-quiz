@@ -6,11 +6,13 @@ import 'package:dev_quiz/shared/models/answer_model.dart';
 import 'package:flutter/material.dart';
 
 class AnswerResponsePage extends StatelessWidget {
+  final String questionTitle;
   final AnswerModel answerGiven;
   final AnswerModel correctAnswer;
 
   const AnswerResponsePage({
     Key? key,
+    required this.questionTitle,
     required this.answerGiven,
     required this.correctAnswer,
   }) : super(key: key);
@@ -23,18 +25,25 @@ class AnswerResponsePage extends StatelessWidget {
       body: Container(
         width: double.maxFinite,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Column(
               children: [
                 Image.asset(isCorrect ? AppImages.check : AppImages.error),
                 Text(
-                  isCorrect ? "Resposta certa 🎉" : "Resposta errada 😔",
+                  isCorrect ? "Resposta certa 🎉" : "Resposta errada",
                   style: AppTextStyles.heading40,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: 60,
+                ),
+                Text(
+                  questionTitle,
+                  style: AppTextStyles.heading,
+                ),
+                SizedBox(
+                  height: 24,
                 ),
                 AnswerWidget(
                   answer: answerGiven,
