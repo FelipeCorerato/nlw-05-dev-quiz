@@ -2,6 +2,15 @@
 
 A new Flutter project.
 
+## About
+
+This is a project developed over the Flutter course from RocketSeat's next-level-week-05. I made some small improvements to the app, but almost everything from the original Figma was followed. 
+
+The App is a quiz application. It has a home screen with your user profile and progress and a quiz list, also when you click any quiz, you start it, and at the end there a possibility to share your performance with your friends. 
+It's pretty simple, but I was able work on some state management approaches, design system concepts, and "fake-backend" (mocked) data fetching.
+
+Figma's link (copy): https://www.figma.com/file/5TrpcnapysIQFGQQBUV5VZ/DevQuiz-(Copy)?node-id=50292%3A450 
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
