@@ -7,7 +7,16 @@ import './widgets/quiz/quiz_widget.dart';
 import '../result/result_page.dart';
 import '../shared/models/question_model.dart';
 
+class ChallengePageArguments {
+  final String title;
+  final List<QuestionModel> questions;
+
+  ChallengePageArguments({required this.title, required this.questions});
+}
+
 class ChallengePage extends StatefulWidget {
+  static const routeName = '/challenge';
+
   final List<QuestionModel> questions;
   final String title;
 
@@ -29,13 +38,15 @@ class _ChallengePageState extends State<ChallengePage> {
   void initState() {
     super.initState();
 
+    controller.questionsCount = widget.questions.length;
+
     pageController.addListener(() {
       controller.currentPage = pageController.page!.toInt() + 1;
     });
   }
 
   void nextPage() {
-    if (controller.currentPage < widget.questions.length)
+    if (controller.currentPage < controller.questionsCount)
       pageController.nextPage(
         duration: Duration(milliseconds: 200),
         curve: Curves.decelerate,
@@ -51,7 +62,7 @@ class _ChallengePageState extends State<ChallengePage> {
 
     controller.answeredQuestionsCount++;
     bool shouldDelay =
-        controller.answeredQuestionsCount != widget.questions.length;
+        controller.answeredQuestionsCount != controller.questionsCount;
 
     Future.delayed(
       Duration(
@@ -63,7 +74,7 @@ class _ChallengePageState extends State<ChallengePage> {
   @override
   Widget build(BuildContext context) {
     bool allQuestionsAnswered =
-        controller.answeredQuestionsCount == widget.questions.length;
+        controller.answeredQuestionsCount == controller.questionsCount;
 
     return Scaffold(
       appBar: PreferredSize(
@@ -131,15 +142,13 @@ class _ChallengePageState extends State<ChallengePage> {
                     child: NextButtonWidget.green(
                       label: 'Confirmar',
                       onTap: () {
-                        Navigator.pushReplacement(
+                        Navigator.pushReplacementNamed(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => ResultPage(
-                              title: widget.title,
-                              quizLength: widget.questions.length,
-                              correctAnswersCount:
-                                  controller.correctAnswersCount,
-                            ),
+                          ResultPage.routeName,
+                          arguments: ResultPageArguments(
+                            title: widget.title,
+                            quizLength: widget.questions.length,
+                            correctAnswersCount: controller.correctAnswersCount,
                           ),
                         );
                       },

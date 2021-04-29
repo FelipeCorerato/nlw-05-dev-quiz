@@ -5,15 +5,12 @@ import '../core/app_gradients.dart';
 import '../home/home_page.dart';
 
 class SplashPage extends StatelessWidget {
+  static const routeName = '/splash';
+
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 2)).then(
-      (_) => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(),
-        ),
-      ),
+      (_) => Navigator.pushReplacementNamed(context, HomePage.routeName),
     );
 
     return Scaffold(

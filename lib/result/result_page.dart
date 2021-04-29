@@ -4,20 +4,28 @@ import 'package:share_plus/share_plus.dart';
 import '../core/core.dart';
 import '../challenge/widgets/next_button/next_button_widget.dart';
 
-class ResultPage extends StatelessWidget {
+class ResultPageArguments {
   final String title;
   final int quizLength;
   final int correctAnswersCount;
 
-  const ResultPage({
-    Key? key,
+  ResultPageArguments({
     required this.title,
     required this.quizLength,
     required this.correctAnswersCount,
-  }) : super(key: key);
+  });
+}
+
+class ResultPage extends StatelessWidget {
+  static const routeName = '/result';
+
+  const ResultPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final ResultPageArguments pageArguments =
+        ModalRoute.of(context)!.settings.arguments as ResultPageArguments;
+
     return Scaffold(
       body: Container(
         width: double.maxFinite,
@@ -41,10 +49,12 @@ class ResultPage extends StatelessWidget {
                     text: "Você concluiu o quiz",
                     style: AppTextStyles.body,
                     children: [
-                      TextSpan(text: "\n$title", style: AppTextStyles.bodyBold),
+                      TextSpan(
+                          text: "\n${pageArguments.title}",
+                          style: AppTextStyles.bodyBold),
                       TextSpan(
                         text:
-                            "\ncom $correctAnswersCount de $quizLength acertos.",
+                            "\ncom ${pageArguments.correctAnswersCount} de ${pageArguments.quizLength} acertos.",
                         style: AppTextStyles.body,
                       ),
                     ],
@@ -64,7 +74,7 @@ class ResultPage extends StatelessWidget {
                           label: 'Compartilhar',
                           onTap: () {
                             Share.share(
-                              "Resultado do Quiz $title \nObtive ${(correctAnswersCount / quizLength) * 100}% de aproveitamento!",
+                              "Resultado do Quiz ${pageArguments.title} \nObtive ${(pageArguments.correctAnswersCount / pageArguments.quizLength) * 100}% de aproveitamento!",
                             );
                           },
                         ),

@@ -8,4 +8,5 @@ class ChallengeController {
 
   int correctAnswersCount = 0;
   int answeredQuestionsCount = 0;
+  int questionsCount = 0;
 }
