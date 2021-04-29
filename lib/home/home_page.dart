@@ -1,4 +1,3 @@
-import 'package:dev_quiz/home/widgets/quiz_card/quiz_card_shimmer_widget.dart';
 import 'package:flutter/material.dart';
 
 import './home_controller.dart';
@@ -6,11 +5,14 @@ import './home_state.dart';
 import './widgets/app_bar/app_bar_widget.dart';
 import './widgets/level_button/level_button_widget.dart';
 import './widgets/quiz_card/quiz_card_widget.dart';
+import './widgets/quiz_card/quiz_card_shimmer_widget.dart';
 import '../challenge/challenge_page.dart';
 import '../core/core.dart';
 import '../shared/models/quiz_model.dart';
 
 class HomePage extends StatefulWidget {
+  static const routeName = '/home';
+
   HomePage({Key? key}) : super(key: key);
 
   @override
@@ -42,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _reloadQuizzes() async {
-    await Future.delayed(Duration(seconds: 1), () => controller.getQuizzes());
+    controller.getQuizzes();
     setState(() {});
   }
 

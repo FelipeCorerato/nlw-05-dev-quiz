@@ -1,22 +1,23 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../shared/models/quiz_model.dart';
 import '../shared/models/user_model.dart';
 
 class HomeRepository {
   Future<UserModel> getUser() async {
-    final response = await rootBundle.loadString("assets/database/user.json");
-    final user = UserModel.fromJson(response);
+    final response = await FirebaseFirestore.instance.collection('users').get();
+
+    final user = UserModel.fromMap(response.docs.first.data());
 
     return user;
   }
 
   Future<List<QuizModel>> getQuizzes(List<Level> filters) async {
     final response =
-        await rootBundle.loadString("assets/database/quizzes.json");
-    final list = jsonDecode(response) as List;
-    final quizzes = list.map((quiz) => QuizModel.fromMap(quiz)).toList();
+        await FirebaseFirestore.instance.collection('quiz_list').get();
+
+    final quizzes =
+        response.docs.map((quiz) => QuizModel.fromMap(quiz.data())).toList();
 
     List<QuizModel> filteredQuizzes = [];
 
