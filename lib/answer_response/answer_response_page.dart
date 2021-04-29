@@ -1,9 +1,10 @@
-import 'package:dev_quiz/challenge/widgets/answer/answer_widget.dart';
-import 'package:dev_quiz/challenge/widgets/next_button/next_button_widget.dart';
-import 'package:dev_quiz/core/app_images.dart';
-import 'package:dev_quiz/core/core.dart';
-import 'package:dev_quiz/shared/models/answer_model.dart';
 import 'package:flutter/material.dart';
+
+import '../challenge/widgets/answer/answer_widget.dart';
+import '../challenge/widgets/next_button/next_button_widget.dart';
+import '../core/app_images.dart';
+import '../core/core.dart';
+import '../shared/models/answer_model.dart';
 
 class AnswerResponsePage extends StatelessWidget {
   final String questionTitle;

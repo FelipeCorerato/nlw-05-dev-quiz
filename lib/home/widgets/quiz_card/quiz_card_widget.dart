@@ -1,8 +1,8 @@
-import 'package:dev_quiz/shared/models/quiz_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/core.dart';
 import '../../../shared/widgets/progress_indicator/progress_indicator_widget.dart';
+import '../../../shared/models/quiz_model.dart';
 
 class QuizCardWidget extends StatefulWidget {
   final String title;

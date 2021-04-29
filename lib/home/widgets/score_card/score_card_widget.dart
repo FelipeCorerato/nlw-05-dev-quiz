@@ -1,6 +1,6 @@
-import 'package:dev_quiz/home/widgets/score_card/score_card_shimmer_widget.dart';
 import 'package:flutter/material.dart';
 
+import './score_card_shimmer_widget.dart';
 import '../chart/chart_widget.dart';
 import '../../../core/core.dart';
 

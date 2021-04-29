@@ -1,6 +1,7 @@
-import 'package:dev_quiz/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../core/core.dart';
 
 class ScoreCardShimmerWidget extends StatelessWidget {
   @override
